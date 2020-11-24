@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quotes Machine</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</head>
+
+<body>
+	<div class="container"> <!--start of container-->
+		<div class="quote-box"> <!--start of quote-box-->
+			<div class="quote" id="quote">
+				<h1 id="quote-text">Here is the quote</h1>	
+			</div>
+			<div class="author">
+				<h3 id="author-text">Author</h3>	
+			</div>
+			<div class="bottom">
+				<div class="bottom-left">
+					<a href="#">T</a>
+					<a href="#">t</a>
+				</div>
+				<div class="bottom-right">
+					<button id="new-quote">New Quote</button>
+				</div>
+				
+			</div>
+
+		</div><!--end of quote-box-->
+
+
+	</div><!--end of container-->
+
+<script>
+
+$(document).ready(function(){
+
+
+
+	var allquotes;
+	const colors = [
+		  '#16a085',
+		  '#27ae60',
+		  '#2c3e50',
+		  '#f39c12',
+		  '#e74c3c',
+		  '#9b59b6',
+		  '#FB6964',
+		  '#342224',
+		  '#472E32',
+		  '#4d4646',
+		  '#77B1A9',
+		  '#73A857'
+		];
+
+		
+
+	$.ajax({ /*start of ajax*/
+			url: "https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json", 
+			dataType: "json",
+			async: false, //let me use the allquotes var outside the function
+			success: function(result){
+				allquotes = result.quotes;
+	/*
+	      		$.each(result ,function(index,element){
+	                    quote = (element[0]);
+	                });*/
+
+      		
+    }}); /*start of ajax function*/
+
+
+  		var newQuoteInfo = getNewQuote();
+		var newQuote = newQuoteInfo.quote;
+		var newAuthor = newQuoteInfo.author;
+		$("#quote-text").text(newQuote);
+		$("#author-text").text(newAuthor);
+		console.log(getColor());
+
+	function getNewQuote(){
+
+		var max = allquotes.length;
+		var randNumber = Math.floor((Math.random() * max));
+		return allquotes[randNumber];
+	}
+
+	function getColor(){
+		var randColor = colors[Math.floor((Math.random() * colors.length))];
+		return randColor;
+
+	}
+
+
+
+	$("#new-quote").click(function(event) {
+		var newQuoteInfo = getNewQuote();
+		var newQuote = newQuoteInfo.quote;
+		var newAuthor = newQuoteInfo.author;
+		$("#quote-text").text(newQuote);
+		$("#author-text").text(newAuthor);
+		console.log(getColor());
+	});
+
+});
+
+
+
+	
+/*
+	$.get("https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json", function(data) {
+    	var result = data;
+    	
+    	var separator = '/quote":"/';
+    	var allquotes = result.split(separator);
+		console.log(allquotes);
+
+	});
+	*/
+	
+</script>
+
+</body>
+</html>
