@@ -1,19 +1,35 @@
-html, body{width: 100%; height: 100%;}
+html, body{width: 100%; height: 100%; margin: 0;}
+
+.container{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column-reverse;
+}
 
 .quote-box{
-	background-color: pink;
-	width: 40%;
-	height: 500px;
+	background-color: white;
+	width: 450px;
+	height: auto;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	display: flex;
 	flex-direction: column;
-}
+	padding: 30px;
+	border-radius: 5px;
 
+}
+.signature{
+
+	background-color: red;
+	position: relative;
+	margin-top: -10%; 
+
+}
 .quote{
-	background-color: blue;
+	background-color: white;
 	flex: 3 1 auto;
 	display: flex;
 	justify-content: center;
@@ -22,14 +38,14 @@ html, body{width: 100%; height: 100%;}
 }
 
 .author{
-	background-color: green;
+	background-color: white;
 	display: flex;
 	flex: 1;
 	justify-content: flex-end;
 }
 
 .bottom{
-	background-color: yellow;
+	background-color: white;
 	flex: 0.5 1 auto;
 	display: flex;
 	flex-direction: row;
@@ -37,10 +53,50 @@ html, body{width: 100%; height: 100%;}
 }
 
 .bottom-left{
-	background-color: brown;
-
+	background-color: white;
 }
 
 .bottom-right{
-	background-color: violet;
+	background-color: white;
 }
+
+#twitterBtn{
+  border: none;
+  color: white;
+  width: 40px;
+  height: 25px;
+  padding: 12px 10px 14px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  border-radius: 5px;
+}
+
+#tumblrBtn{
+  border: none;
+  color: white;
+  width: 40px;
+  height: 25px;
+  padding: 12px 10px 14px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  border-radius: 5px;
+}
+
+#new-quote{
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 19px;
+  outline: none;
+  border-radius: 5px;
+
+}
+
+

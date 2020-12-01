@@ -4,22 +4,23 @@
 	<title>Quotes Machine</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body>
 	<div class="container"> <!--start of container-->
 		<div class="quote-box"> <!--start of quote-box-->
 			<div class="quote" id="quote">
-				<h1 id="quote-text">Here is the quote</h1>	
+				<h1 id="quote-text"></h1>
 			</div>
 			<div class="author">
-				<h3 id="author-text">Author</h3>	
+				<h3 id="author-text"></h3>	
 			</div>
 			<div class="bottom">
 				<div class="bottom-left">
-					<a href="#">T</a>
-					<a href="#">t</a>
+					<a href="#"><i class="fa fa-twitter" aria-hidden="true" id="twitterBtn"></i></a>
+					<a href="#"><i class="fa fa-tumblr" id="tumblrBtn"></i></a>
 				</div>
 				<div class="bottom-right">
 					<button id="new-quote">New Quote</button>
@@ -29,8 +30,13 @@
 
 		</div><!--end of quote-box-->
 
-
+		<div class="signature">
+			<h5>By Sofia Lopez</h5> 
+		</div>
 	</div><!--end of container-->
+
+</body>
+</html>
 
 <script>
 
@@ -62,21 +68,25 @@ $(document).ready(function(){
 			async: false, //let me use the allquotes var outside the function
 			success: function(result){
 				allquotes = result.quotes;
-	/*
-	      		$.each(result ,function(index,element){
-	                    quote = (element[0]);
-	                });*/
-
       		
-    }}); /*start of ajax function*/
+    }}); /*end of ajax function*/
 
+	
+		var toChangeBg = ".container, #twitterBtn, #tumblrBtn, #new-quote";
+		var toChangeColor = "#author-text, #quote-text";
 
   		var newQuoteInfo = getNewQuote();
 		var newQuote = newQuoteInfo.quote;
 		var newAuthor = newQuoteInfo.author;
-		$("#quote-text").text(newQuote);
-		$("#author-text").text(newAuthor);
-		console.log(getColor());
+		var color = "#4CAF50";
+		color = getColor();
+		$(toChangeBg).css("background-color",  color);
+		$(toChangeColor).css("color",  color);
+
+		//$("#quote-text").text(newQuote);
+		$("#quote-text").html('<i class="fa fa-quote-left" aria-hidden="true"></i>' + newQuote);
+		$("#author-text").text("-" + newAuthor);
+		console.log(getColor()); 
 
 	function getNewQuote(){
 
@@ -86,39 +96,36 @@ $(document).ready(function(){
 	}
 
 	function getColor(){
+
 		var randColor = colors[Math.floor((Math.random() * colors.length))];
+		
+		if(randColor==color){
+			getColor();
+		}
+		else
 		return randColor;
+
 
 	}
 
-
-
 	$("#new-quote").click(function(event) {
+		$(toChangeColor).fadeOut('slow', function() {
 		var newQuoteInfo = getNewQuote();
 		var newQuote = newQuoteInfo.quote;
 		var newAuthor = newQuoteInfo.author;
+		color = getColor();
 		$("#quote-text").text(newQuote);
-		$("#author-text").text(newAuthor);
-		console.log(getColor());
+		$("#author-text").text("-" + newAuthor);
+		$(toChangeBg).css("background-color",  color);
+		$(toChangeColor).css("color",  color);
+		$(toChangeBg).css("transition",  "all 1s ease");
+		$(toChangeColor).fadeIn('slow');
+		});
+		
 	});
+
 
 });
 
-
-
-	
-/*
-	$.get("https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json", function(data) {
-    	var result = data;
-    	
-    	var separator = '/quote":"/';
-    	var allquotes = result.split(separator);
-		console.log(allquotes);
-
-	});
-	*/
 	
 </script>
-
-</body>
-</html>
