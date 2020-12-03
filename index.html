@@ -23,16 +23,16 @@
 					<a href="#"><i class="fa fa-tumblr" id="tumblrBtn"></i></a>
 				</div>
 				<div class="bottom-right">
-					<button id="new-quote">New Quote</button>
+					<button id="new-quote" class="new-quote">New Quote</button>
 				</div>
 				
 			</div>
-
+			
 		</div><!--end of quote-box-->
-
-		<div class="signature">
-			<h5>By Sofia Lopez</h5> 
-		</div>
+<div class="signature">
+				<h5>By Sofia Lopez</h5> 
+			</div>
+		
 	</div><!--end of container-->
 
 </body>
@@ -42,8 +42,9 @@
 
 $(document).ready(function(){
 
-
-
+	var toChangeBg = ".container, #twitterBtn, #tumblrBtn, #new-quote";
+	var toChangeColor = "#author-text, #quote-text";
+	var color = "#4CAF50";
 	var allquotes;
 	const colors = [
 		  '#16a085',
@@ -60,72 +61,51 @@ $(document).ready(function(){
 		  '#73A857'
 		];
 
-		
 
 	$.ajax({ /*start of ajax*/
 			url: "https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json", 
 			dataType: "json",
-			async: false, //let me use the allquotes var outside the function
+			async: false, //wait for this to finish to be able to do the rest of the code.
 			success: function(result){
-				allquotes = result.quotes;
-      		
+				allquotes = result.quotes;     		
     }}); /*end of ajax function*/
 
-	
-		var toChangeBg = ".container, #twitterBtn, #tumblrBtn, #new-quote";
-		var toChangeColor = "#author-text, #quote-text";
-
-  		var newQuoteInfo = getNewQuote();
-		var newQuote = newQuoteInfo.quote;
-		var newAuthor = newQuoteInfo.author;
-		var color = "#4CAF50";
-		color = getColor();
-		$(toChangeBg).css("background-color",  color);
-		$(toChangeColor).css("color",  color);
-
-		//$("#quote-text").text(newQuote);
-		$("#quote-text").html('<i class="fa fa-quote-left" aria-hidden="true"></i>' + newQuote);
-		$("#author-text").text("-" + newAuthor);
-		console.log(getColor()); 
 
 	function getNewQuote(){
-
 		var max = allquotes.length;
 		var randNumber = Math.floor((Math.random() * max));
 		return allquotes[randNumber];
-	}
+	};
 
 	function getColor(){
-
-		var randColor = colors[Math.floor((Math.random() * colors.length))];
-		
-		if(randColor==color){
-			getColor();
-		}
-		else
+		const result = colors.filter(el => el != color);
+		var randColor = result[Math.floor((Math.random() * result.length))];
 		return randColor;
+	};
 
-
-	}
-
-	$("#new-quote").click(function(event) {
-		$(toChangeColor).fadeOut('slow', function() {
+	function changeQuote(){
+		$(toChangeColor).fadeOut('slow').promise().done(function() {
 		var newQuoteInfo = getNewQuote();
 		var newQuote = newQuoteInfo.quote;
 		var newAuthor = newQuoteInfo.author;
 		color = getColor();
-		$("#quote-text").text(newQuote);
+	
+		$("#quote-text").html('<i class="fa fa-quote-left" aria-hidden="true"></i>' + newQuote);
 		$("#author-text").text("-" + newAuthor);
 		$(toChangeBg).css("background-color",  color);
 		$(toChangeColor).css("color",  color);
 		$(toChangeBg).css("transition",  "all 1s ease");
 		$(toChangeColor).fadeIn('slow');
-		});
-		
 	});
 
+	};
 
-});
+	changeQuote();
 
-	
+	$(".new-quote").click(function(event) {
+		changeQuote();
+	});
+
+}); //end of document ready
+
 </script>
