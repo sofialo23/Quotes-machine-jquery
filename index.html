@@ -11,6 +11,7 @@
 <body>
 	<div class="container"> <!--start of container-->
 		<div class="quote-box"> <!--start of quote-box-->
+			<div class="upper-box">
 			<div class="quote" id="quote">
 				<h1 id="quote-text"></h1>
 			</div>
@@ -19,19 +20,20 @@
 			</div>
 			<div class="bottom">
 				<div class="bottom-left">
-					<a href="#"><i class="fa fa-twitter" aria-hidden="true" id="twitterBtn"></i></a>
-					<a href="#"><i class="fa fa-tumblr" id="tumblrBtn"></i></a>
+					<a href="https://twitter.com/intent/tweet" target="_blank"><i class="fa fa-twitter" aria-hidden="true" id="twitterBtn"></i></a>
+					<a href="https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,freecodecamp&caption=Amelia%20Earhart&content=The%20most%20difficult%20thing%20is%20the%20decision%20to%20act%2C%20the%20rest%20is%20merely%20tenacity.&canonicalUrl=https%3A%2F%2Fwww.tumblr.com%2Fbuttons&shareSource=tumblr_share_button" target="_blank"><i class="fa fa-tumblr" id="tumblrBtn"></i></a>
 				</div>
 				<div class="bottom-right">
 					<button id="new-quote" class="new-quote">New Quote</button>
 				</div>
 				
 			</div>
-			
-		</div><!--end of quote-box-->
-<div class="signature">
+		</div> <!--end of upperbox-->
+			<div class="lower-box">
 				<h5>By Sofia Lopez</h5> 
 			</div>
+		</div><!--end of quote-box-->
+			
 		
 	</div><!--end of container-->
 
@@ -42,7 +44,7 @@
 
 $(document).ready(function(){
 
-	var toChangeBg = ".container, #twitterBtn, #tumblrBtn, #new-quote";
+	var toChangeBg = ".container, #twitterBtn, #tumblrBtn, #new-quote, .lower-box";
 	var toChangeColor = "#author-text, #quote-text";
 	var color = "#4CAF50";
 	var allquotes;
